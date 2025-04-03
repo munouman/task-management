@@ -1,0 +1,58 @@
+{% include 'core/base.html' %}
+
+{% block content %}
+<div class="flex justify-center items-center h-screen mx-3">
+  <div class="bg-gray-900 p-8 rounded-lg shadow-lg w-full mx-auto md:w-1/3">
+    <h2 class="text-2xl font-bold mb-4 text-slate-200">Signup</h2>
+    <form action="{% url 'accounts:signup' %}" method="post" class="space-y-4 text-slate-200">
+      {% csrf_token %}
+      
+      <!-- Loop through form fields dynamically as done in the original template -->
+      {% for field in form %}
+      <div class="mb-4">
+        <label for="{{ field.id_for_label }}" class="block text-gray-300">{{ field.label }}</label>
+        
+        {% if field.name == 'role' %}
+          <!-- Render a dropdown (select element) for the role field -->
+          <select name="{{ field.name }}" id="{{ field.id_for_label }}" 
+                  class="w-full px-3 py-2 rounded-lg bg-gray-700 text-gray-300 outline-none focus-within:ring-1 focus-within:ring-offset-blue-900">
+            {% for value, label in field.field.choices %}
+              <option value="{{ value }}" {% if field.value == value %} selected {% endif %}>
+                {{ label }}
+              </option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <!-- Render other form fields as usual -->
+          <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                 class="w-full px-3 py-2 rounded-lg bg-gray-700 text-gray-300 outline-none focus-within:ring-1 focus-within:ring-offset-blue-900">
+        {% endif %}
+        
+        <!-- Display errors for each field if present -->
+        {% for error in field.errors %}
+        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <button type="submit"
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        Signup
+      </button>
+    </form>
+
+    {% if form.errors %}
+    <div class="alert alert-danger text-red-500 mt-3">
+      <strong>Error:</strong> Please correct the following errors.
+      <ul>
+        {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+        <li>{{ field }}: {{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

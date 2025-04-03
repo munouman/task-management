@@ -1,0 +1,39 @@
+<!-- {% extends "core/base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="text-center text-[#f9cb55]">Confirm Reset</h2>
+    <p class="text-center text-[#9abad8]">Are you sure you want to reset all tasks? This action cannot be undone.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <!-- Reset Form -->
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <button type="submit" class="btn btn-danger btn-block">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 1.5A6.5 6.5 0 1 0 8 14 6.5 6.5 0 1 0 8 1.5zM8 0a7 7 0 1 1 0 14A7 7 0 0 1 8 0z"/>
+                <path d="M8 4a1 1 0 0 1 1 1v4.535L10.707 9.707a1 1 0 1 1 1.414 1.414L8 12l-4.121-4.121a1 1 0 1 1 1.414-1.414L7 9.535V5a1 1 0 0 1 1-1z"/>
+              </svg>
+              Yes, Reset All Tasks
+            </button>
+          </div>
+        </form>
+
+        <!-- Cancel Form -->
+        <form method="GET" action="{% url 'dashboard:index' %}">
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary btn-block">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 1.5A6.5 6.5 0 1 0 8 14 6.5 6.5 0 1 0 8 1.5zM8 0a7 7 0 1 1 0 14A7 7 0 0 1 8 0z"/>
+                <path d="M8 4a1 1 0 0 1 1 1v4.535L10.707 9.707a1 1 0 1 1 1.414 1.414L8 12l-4.121-4.121a1 1 0 1 1 1.414-1.414L7 9.535V5a1 1 0 0 1 1-1z"/>
+              </svg>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %} -->

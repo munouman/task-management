@@ -1,0 +1,41 @@
+{% include 'core/base.html' %}
+
+{% block content %}
+<div class="flex justify-center items-start mx-3 mt-8">
+  <div class="bg-gray-900 p-8 rounded-lg shadow-lg w-full mx-auto md:w-3/4 lg:w-2/3">
+    <h2 class="text-2xl font-bold mb-6 text-slate-200">User List</h2>
+    <div class="overflow-x-auto bg-[#1e2d3b] p-4 rounded-lg shadow-md">
+        <table class="min-w-full table-auto text-white">
+            <thead>
+                <tr class="border-b border-gray-600">
+                    <th class="px-4 py-2 text-left">Username</th>
+                    <th class="px-4 py-2 text-left">Email</th>
+                    <th class="px-4 py-2 text-left">First Name</th>
+                    <th class="px-4 py-2 text-left">Last Name</th>
+                    <th class="px-4 py-2 text-left">Is Staff</th>
+                    <th class="px-4 py-2 text-left">Is Active</th>
+                    <th class="px-4 py-2 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr class="hover:bg-gray-700">
+                        <td class="px-4 py-2">{{ user.username }}</td>
+                        <td class="px-4 py-2">{{ user.email }}</td>
+                        <td class="px-4 py-2">{{ user.first_name }}</td>
+                        <td class="px-4 py-2">{{ user.last_name }}</td>
+                        <td class="px-4 py-2">{{ user.is_staff }}</td>
+                        <td class="px-4 py-2">{{ user.is_active }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{% url 'dashboard:edit_user' user.id %}" 
+                               class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

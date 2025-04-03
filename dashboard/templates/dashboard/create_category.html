@@ -1,0 +1,39 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+  <!-- <div class="container mt-5">
+    <h1 class="text-2xl font-bold text-[#9abad8]">Create a New Category</h1> -->
+    
+    {% if user.is_authenticated %}
+      {% if user.is_superuser or user.role == 'manager' %}
+        <form method="POST" class="bg-[#0d1c2a] p-4 rounded-md shadow-lg mt-5">
+          {% csrf_token %}
+          
+          <!-- Category Name -->
+          <div class="form-group mb-4">
+            <label for="id_name" class="text-[#9abad8]">Category Name</label>
+            {{ category_form.name }}
+          </div>
+            
+            {% if category_form.name.errors %}
+              <div class="text-red-500 mt-2">
+                {% for error in category_form.name.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" class="bg-[#0d1c2a] text-[#9abad8] font-normal rounded-md p-2 w-full hover:bg-green-700">
+            Create Category
+          </button>
+        </form>
+      {% else %}
+        <p class="text-red-500">You do not have permission to create a category.</p>
+      {% endif %}
+    {% else %}
+      <p class="text-red-500">You must be logged in to create a category.</p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% include 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge, and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .select2-container .select2-selection--multiple {
+            background-color: #0d1c2a;
+            color: #9abad8;
+            border: 1px solid #2f5170;
+        }
+
+        .select2-container .select2-dropdown {
+            background-color: #0d1c2a;
+            border-color: #2f5170;
+            color: #9abad8;
+        }
+
+        .select2-container .select2-results__option[aria-selected=true] {
+            background-color: #2f5170;
+            color: #fff;
+        }
+
+        .select2-container .select2-search--inline .select2-search__field {
+            color: #9abad8;
+        }
+    </style>
+</head>
+<div class="flex justify-center items-center h-screen mx-3">
+  <!-- Changed max-w-sm to max-w-md for a wider form -->
+  <div class="bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">  <!-- max-w-md for more width -->
+    <h2 class="text-2xl font-bold mb-4 text-slate-200">Edit User: {{ user.username }}</h2>
+
+    <form method="post" class="space-y-3 text-slate-200">  <!-- Reduced space-y-4 to space-y-3 -->
+      {% csrf_token %}
+
+      <!-- Username Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_username" class="block text-white text-sm font-medium">Username:</label>
+        <input 
+            type="text" 
+            name="username" 
+            value="{{ form.username.value }}" 
+            id="id_username"
+            class="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 bg-[#2a3b4c] text-white placeholder-gray-500"  <!-- Reduced padding -->
+            <!-- placeholder="Enter Username" /> -->
+      </div>
+
+      <!-- Email Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_email" class="block text-white text-sm font-medium">Email:</label>
+        <input 
+            type="email" 
+            name="email" 
+            value="{{ form.email.value }}" 
+            id="id_email" 
+            class="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 bg-[#2a3b4c] text-white placeholder-gray-500"
+            placeholder="Enter Email" />
+      </div>
+
+      <!-- First Name Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_first_name" class="block text-white text-sm font-medium">First Name:</label>
+        <input 
+            type="text" 
+            name="first_name" 
+            value="{{ form.first_name.value }}" 
+            id="id_first_name" 
+            class="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 bg-[#2a3b4c] text-white placeholder-gray-500"
+            placeholder="Enter First Name" />
+      </div>
+
+      <!-- Last Name Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_last_name" class="block text-white text-sm font-medium">Last Name:</label>
+        <input 
+            type="text" 
+            name="last_name" 
+            value="{{ form.last_name.value }}" 
+            id="id_last_name" 
+            class="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 bg-[#2a3b4c] text-white placeholder-gray-500"
+            placeholder="Enter Last Name" />
+      </div>
+
+      <!-- Is Active Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_is_active" class="block text-white text-sm font-medium">Is Active:</label>
+        <input 
+            type="checkbox" 
+            name="is_active" 
+            {% if form.is_active.value %}checked{% endif %}
+            id="id_is_active" 
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500" />
+      </div>
+
+      <!-- Is Staff Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_is_staff" class="block text-white text-sm font-medium">Is Staff:</label>
+        <input 
+            type="checkbox" 
+            name="is_staff" 
+            {% if form.is_staff.value %}checked{% endif %}
+            id="id_is_staff" 
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500" />
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_password" class="block text-white text-sm font-medium">Password (leave blank if not changing):</label>
+        <input 
+            type="password" 
+            name="password" 
+            id="id_password"
+            class="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 bg-[#2a3b4c] text-white placeholder-gray-500"
+            placeholder="Enter Password" />
+      </div>
+
+      <!-- Role Dropdown -->
+      <div class="mb-3">  <!-- Reduced mb-4 to mb-3 -->
+        <label for="id_role" class="block text-white text-sm font-medium">Role:</label>
+        <div class="relative">
+            {{ form.role }}
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-center items-center mt-4">  <!-- Reduced mt-6 to mt-4 -->
+        <button 
+            type="submit" 
+            class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Save Changes
+        </button>
+      </div>
+
+      <!-- Cancel Button -->
+      <div class="flex justify-center items-center mt-3">  <!-- Reduced mt-4 to mt-3 -->
+        <a href="{% url 'dashboard:user_list' %}" class="w-full text-center bg-red-600 text-white p-3 rounded-md hover:bg-red-500 focus:outline-none">
+            Cancel
+        </a>
+      </div>
+    </form>
+
+    {% if form.errors %}
+    <div class="alert alert-danger text-red-500 mt-3">
+      <strong>Error:</strong> Please correct the following errors.
+      <ul>
+        {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+        <li>{{ field }}: {{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+<!-- Script for Select2 Dropdown -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 for the role dropdown
+        $('#id_role').select2({
+            placeholder: "Select a Role",
+            width: '100%'  // Ensure width is full for better responsiveness
+        });
+    });
+</script>
